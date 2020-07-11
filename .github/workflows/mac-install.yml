@@ -13,7 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: Cache Java
+      id: mac-cache-java11
+      uses: actions/cache@v1
+      with:
+        path: /Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/
+        key: ${{ runner.os }}-java11
+
     - name: Install Java 11
+      if: steps.mac-cache-java11.outputs.cache-hit != 'true'
       run: |
         brew update
         brew tap homebrew/cask-versions
@@ -28,8 +36,8 @@ jobs:
       id: mac-cache-z3
       uses: actions/cache@v1
       with:
-        path: ~/z3/
-        key: ${{ runner.os }}-z3-mac-installation
+        path: $GITHUB_WORKSPACE/z3/
+        key: ${{ runner.os }}-z3
 
     - name: Install Z3
       if: steps.mac-cache-z3.outputs.cache-hit != 'true'
@@ -42,7 +50,7 @@ jobs:
         sudo make install
 
     - name: Copy the Z3 java libraries
-      run: sudo cp ~/z3/build/*z3*.dylib /Library/Java/Extensions/.
+      run: sudo cp $GITHUB_WORKSPACE/z3/build/*z3*.dylib /Library/Java/Extensions/.
 
     - name: Install sbt
       run: brew install sbt
