@@ -49,8 +49,10 @@ jobs:
         sbt update clean compile
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
+        cd bin
+        pwd
     
     - name: Test UCLID
       run: |
-        target/uclid-0.9.5/bin/uclid examples/tutorial/ex1.1-fib-model.ucl
+        ./target/uclid-0.9.5/bin/uclid ./examples/tutorial/ex1.1-fib-model.ucl
 
