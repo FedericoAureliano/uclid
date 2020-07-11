@@ -29,7 +29,7 @@ jobs:
         git clone https://github.com/Z3Prover/z3.git
         cd z3
         python scripts/mk_make.py --java
-        mkdir build; cd build
+        cd build
         make -j4
 
     - name: Copy the Z3 java libraries
