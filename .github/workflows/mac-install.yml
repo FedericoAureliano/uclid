@@ -50,7 +50,9 @@ jobs:
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
         cd uclid-0.9.5
-        export PATH=$PATH:$(pwd)/bin
+        UCLID=$(pwd)
+        echo 'export PATH=$UCLID/bin:$PATH' >> ~/.zshrc
+        source ~/.zshrc
     
     - name: Test UCLID
       run: |
