@@ -24,16 +24,27 @@ jobs:
         echo 'export JAVA_HOME=$(/usr/libexec/java_home -v11)' >> ~/.zshrc
         source ~/.zshrc
 
+    - name: Cache Z3
+      id: mac-cache-z3
+      uses: actions/cache@v1
+      with:
+        path: ~/z3/
+        key: ${{ runner.os }}-z3-mac-installation
+
     - name: Install Z3
+      if: steps.mac-cache-z3.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/Z3Prover/z3.git
         cd z3
         python scripts/mk_make.py --java
         cd build
         make -j4
+        sudo make install
 
     - name: Copy the Z3 java libraries
-      run: sudo cp ./*z3*.dylib /Library/Java/Extensions/.
+      run: |
+        ls
+        sudo cp ./*z3*.dylib /Library/Java/Extensions/.
 
     - name: Install sbt
       run: brew install sbt
