@@ -49,12 +49,8 @@ jobs:
         sbt update clean compile
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
-        cd uclid-0.9.5
-        UCLID=$(pwd)
-        echo 'export PATH=$UCLID/bin:$PATH' >> ~/.zshrc
-        source ~/.zshrc
     
     - name: Test UCLID
       run: |
-        uclid examples/tutorial/ex1.1-fib-model.ucl
+        target/uclid-0.9.5/bin/uclid examples/tutorial/ex1.1-fib-model.ucl
 
