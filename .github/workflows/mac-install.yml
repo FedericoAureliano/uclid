@@ -49,8 +49,9 @@ jobs:
         sbt update clean compile
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
-        cd bin
+        cd ./target/universal/uclid-0.9.5/bin
         pwd
+        ls
     
     - name: Test UCLID
       run: |
