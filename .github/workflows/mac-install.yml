@@ -57,12 +57,9 @@ jobs:
 
     - name: Install UCLID
       run: |
-        ls
-        cd uclid
         sbt update clean compile
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
         cd uclid-0.9.5
-        uclid -h
-        ls
+        ./uclid -h
 
