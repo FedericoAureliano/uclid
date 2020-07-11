@@ -13,22 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Cache Java
-      id: mac-cache-java11
-      uses: actions/cache@v1
-      with:
-        path: /usr/local/Cellar/
-        key: ${{ runner.os }}-java11
-
     - name: Install Java 11
-      if: steps.mac-cache-java11.outputs.cache-hit != 'true'
       run: |
         brew update
         brew tap homebrew/cask-versions
         brew cask install java11
-
-    - name: Make Java default
-      run: |
         echo 'export JAVA_HOME=$(/usr/libexec/java_home -v11)' >> ~/.zshrc
         source ~/.zshrc
 
@@ -37,7 +26,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: z3/
-        key: ${{ runner.os }}-z3
+        key: ${{ runner.os }}-z3-1
 
     - name: Install Z3
       if: steps.mac-cache-z3.outputs.cache-hit != 'true'
@@ -61,5 +50,5 @@ jobs:
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
         cd uclid-0.9.5
-        ./bin/uclid -h
+        ls bin
 
