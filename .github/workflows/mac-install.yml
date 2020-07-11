@@ -17,7 +17,7 @@ jobs:
       id: mac-cache-java11
       uses: actions/cache@v1
       with:
-        path: /Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/
+        path: /usr/local/Cellar/
         key: ${{ runner.os }}-java11
 
     - name: Install Java 11
@@ -36,7 +36,7 @@ jobs:
       id: mac-cache-z3
       uses: actions/cache@v1
       with:
-        path: $GITHUB_WORKSPACE/z3/
+        path: z3/
         key: ${{ runner.os }}-z3
 
     - name: Install Z3
@@ -61,5 +61,5 @@ jobs:
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
         cd uclid-0.9.5
-        ./uclid -h
+        ./bin/uclid -h
 
