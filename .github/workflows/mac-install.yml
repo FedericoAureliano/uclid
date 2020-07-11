@@ -50,5 +50,9 @@ jobs:
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
         cd uclid-0.9.5
-        ls
+        export PATH=$PATH:$(pwd)/bin
+    
+    - name: Test UCLID
+      run: |
+        uclid examples/tutorial/ex1.1-fib-model.ucl
 
