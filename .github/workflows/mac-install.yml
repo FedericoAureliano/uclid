@@ -43,20 +43,10 @@ jobs:
         sudo cp $GITHUB_WORKSPACE/z3/build/libz3.dylib /usr/local/lib/ 
 
     
-    # - name: Install sbt
-    #   run: brew install sbt
-
-    - name: Cache SBT ivy cache
-      uses: actions/cache@v1
-      with:
-        path: ~/.ivy2/cache
-        key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/build.sbt') }}
-
-    - name: Cache SBT
-      uses: actions/cache@v1
-      with:
-        path: ~/.sbt
-        key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
+    - name: Install sbt
+      run: |
+        rm -rf ~/.ivy2/cache ~/.ivy2/jars ~/.m2/repository/
+        brew install sbt
 
     - name: Install UCLID
       run: |
