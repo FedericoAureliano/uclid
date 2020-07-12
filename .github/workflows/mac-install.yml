@@ -13,14 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Install Java 11
-      run: |
-        brew update
-        brew tap homebrew/cask-versions
-        brew cask install java11
-        echo 'export JAVA_HOME=$(/usr/libexec/java_home -v11)' >> ~/.zshrc
-        source ~/.zshrc
-
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
     - name: Check Java versions
       run: java --version
 
