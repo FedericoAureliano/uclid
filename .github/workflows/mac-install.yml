@@ -42,8 +42,9 @@ jobs:
         sudo cp $GITHUB_WORKSPACE/z3/build/libz3java.dylib /Library/Java/Extensions/
         sudo cp $GITHUB_WORKSPACE/z3/build/libz3.dylib /usr/local/lib/ 
 
-    - name: Install sbt
-      run: brew install sbt
+    
+    # - name: Install sbt
+    #  run: brew install sbt
 
     - name: Install UCLID
       run: |
