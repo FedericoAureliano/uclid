@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+
     - name: Check Java versions
       run: java --version
 
@@ -45,7 +46,6 @@ jobs:
     
     - name: Install sbt
       run: |
-        rm -rf ~/.ivy2/cache ~/.ivy2/jars ~/.m2/repository/
         brew install sbt
 
     - name: Install UCLID
@@ -54,6 +54,13 @@ jobs:
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
     
+    - name: Install UCLID again if previous attempt fails
+      if: {{ failure() }}
+      run: |
+        sbt update clean compile
+        sbt universal:packageBin
+        unzip ./target/universal/uclid-0.9.5.zip
+
     - name: Test UCLID
       run: |
         java --version
