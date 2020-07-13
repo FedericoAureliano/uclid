@@ -48,21 +48,15 @@ jobs:
       run: |
         brew install sbt
 
-    - name: Install UCLID
+    - name: Compile UCLID
       run: |
         sbt update clean compile || sbt update clean compile
+    
+    - name: Test UCLID
+      run: sbt "set fork:=true" test
+
+    - name: Package UCLID
+      run: |
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
-    
-    # - name: Install UCLID again if previous attempt fails
-    #   if: ${{ failure() }}
-    #   run: |
-    #     sbt update clean compile
-    #     sbt universal:packageBin
-    #     unzip ./target/universal/uclid-0.9.5.zip
-
-    - name: Test UCLID
-      run: |
-        java --version
-        ./uclid-0.9.5/bin/uclid ./examples/tutorial/ex1.1-fib-model.ucl
 
