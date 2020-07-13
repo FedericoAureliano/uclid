@@ -50,16 +50,16 @@ jobs:
 
     - name: Install UCLID
       run: |
-        sbt update clean compile
+        sbt update clean compile || sbt update clean compile
         sbt universal:packageBin
         unzip ./target/universal/uclid-0.9.5.zip
     
-    - name: Install UCLID again if previous attempt fails
-      if: ${{ failure() }}
-      run: |
-        sbt update clean compile
-        sbt universal:packageBin
-        unzip ./target/universal/uclid-0.9.5.zip
+    # - name: Install UCLID again if previous attempt fails
+    #   if: ${{ failure() }}
+    #   run: |
+    #     sbt update clean compile
+    #     sbt universal:packageBin
+    #     unzip ./target/universal/uclid-0.9.5.zip
 
     - name: Test UCLID
       run: |
