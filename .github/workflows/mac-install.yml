@@ -38,11 +38,15 @@ jobs:
         make -j4
         sudo make install
 
+    - name: Add Z3 to Path
+      run: |
+       ls $GITHUB_WORKSPACE/z3/bin/
+       echo "::add-path::$GITHUB_WORKSPACE/z3/bin/"
+
     - name: Copy the Z3 java libraries
       run: |
         sudo cp $GITHUB_WORKSPACE/z3/build/libz3java.dylib /Library/Java/Extensions/
         sudo cp $GITHUB_WORKSPACE/z3/build/libz3.dylib /usr/local/lib/ 
-
     
     - name: Install sbt
       run: |
