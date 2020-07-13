@@ -55,7 +55,7 @@ jobs:
         unzip ./target/universal/uclid-0.9.5.zip
     
     - name: Install UCLID again if previous attempt fails
-      if: {{ failure() }}
+      if: ${{ failure() }}
       run: |
         sbt update clean compile
         sbt universal:packageBin
